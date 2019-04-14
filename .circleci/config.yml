@@ -24,3 +24,9 @@ jobs:
       - store_artifacts:
           path: test-reports/
           destination: python_app
+      - run: # test what branch we're on.
+          name: "What branch am I on?"
+          command: echo ${CIRCLE_BRANCH}
+      - run: # test what branch we're on.
+          name: "Test var"
+          command: echo ${DOCKER_NAME}
