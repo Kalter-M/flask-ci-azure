@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/python:3.6
     steps:
@@ -58,10 +58,10 @@ jobs:
 #          command: echo ${BUILD_NUMBER}
 
 
-workflows:
-  build-deploy:
-    jobs:
-      - test
+#workflows:
+#  build-deploy:
+#    jobs:
+#      - test
 #      - build:
 #          requires:
 #            - test
