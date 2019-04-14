@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+    build:
+        image: circleci/python:3.6
+        container_name: build_blog
+        command:
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+            python3 tests.py
