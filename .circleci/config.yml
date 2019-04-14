@@ -47,3 +47,6 @@ jobs:
           name: Build image
           command: |
             docker build -t $FULL_IMAGE_NAME .
+      - run: # test what branch we're on.
+          name: "show docker images"
+          command: docker images
