@@ -56,3 +56,18 @@ jobs:
 #      - run: # test what branch we're on.
 #          name: "build num"
 #          command: echo ${BUILD_NUMBER}
+
+
+workflows:
+  build-deploy:
+    jobs:
+      - test
+#      - build:
+#          requires:
+#            - test
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: master
