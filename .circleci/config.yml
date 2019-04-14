@@ -34,25 +34,25 @@ jobs:
 #          name: "Test var"
 #          command: echo ${DOCKER_NAME}
 
-  build:
-    docker:
-      - image: circleci/python:3.6
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Load env
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-      - run:
-          name: Build image
-          command: |
-            docker build -t $FULL_IMAGE_NAME .
-      - run: # test what branch we're on.
-          name: "show docker images"
-          command: docker images
-      - run: # test what branch we're on.
-          name: "build num"
-          command: echo ${BUILD_NUMBER}
+#  build:
+#    docker:
+#      - image: circleci/python:3.6
+#    steps:
+#      - checkout
+#      - setup_remote_docker
+#      - run:
+#          name: Load env
+#          command: |
+#            python3 -m venv venv
+#            . venv/bin/activate
+#            pip install -r requirements.txt
+#      - run:
+#          name: Build image
+#          command: |
+#            docker build -t $FULL_IMAGE_NAME .
+#      - run: # test what branch we're on.
+#          name: "show docker images"
+#          command: docker images
+#      - run: # test what branch we're on.
+#          name: "build num"
+#          command: echo ${BUILD_NUMBER}
