@@ -2,7 +2,7 @@ FROM circleci/python:3.6
 
 ADD . /code
 WORKDIR /code
-CMD ls
+RUN ls
 CMD python3 -m venv venv
 CMD . venv/bin/activate
 CMD pip install -r requirements.txt
