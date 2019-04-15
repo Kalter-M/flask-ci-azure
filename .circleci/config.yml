@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker
       - run:
           command: |
-            docker-compose up build
+            docker-compose up flask-build
 
 
 

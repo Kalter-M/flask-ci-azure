@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  build:
+  flask-build:
     build: .
     working_dir: /code
     command: ["python", "tests.py"]
