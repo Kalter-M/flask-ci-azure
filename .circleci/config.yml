@@ -9,7 +9,7 @@ jobs:
           name: Setup VirtualEnv
           command: |
             echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
-            echo 'export IMAGE_NAME=python-circleci-docker' >> $BASH_ENV
+            echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
             python3 -m venv venv
             . venv/bin/activate
             pip install --no-cache-dir -r requirements.txt
@@ -25,6 +25,7 @@ jobs:
           command: |
             docker build -t $IMAGE_NAME:$TAG .
             docker images
+            docker run $IMAGE_NAME:$TAG
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
