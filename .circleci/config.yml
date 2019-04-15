@@ -10,7 +10,7 @@ jobs:
           command: |
             echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
             echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
-            echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"'
+            echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"' >> $BASH_ENV
             echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:${TAG}"'
             echo  ${AZ_REGISTRY_USER} ${AZ_REGISTRY_URL}
             python3 -m venv venv
