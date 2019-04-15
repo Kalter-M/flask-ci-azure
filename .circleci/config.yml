@@ -24,6 +24,7 @@ jobs:
           name: Build and push Docker image
           command: |
             docker build -t $IMAGE_NAME:$TAG .
+            docker images
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
