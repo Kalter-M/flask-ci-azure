@@ -6,10 +6,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Setup VirtualEnv
+          name: Setup Env
           command: |
             echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
             echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
+            echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"'
+            echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:${TAG}"'
             python3 -m venv venv
             . venv/bin/activate
             pip install --no-cache-dir -r requirements.txt
@@ -21,12 +23,16 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
-          name: Build and push Docker image
+          name: Build Docker image
           command: |
             . venv/bin/activate
-            docker build -t $IMAGE_NAME:$TAG .
-            docker images
-            docker run $IMAGE_NAME:$TAG
+            docker build --rm=true -t $IMAGE_NAME:$TAG .
+      - run:
+          name: Push Docker Image
+          command: |
+            docker login -u ${AZ_REGISTRY_USER} -p ${AZ_REGISTRY_PASSWORD} ${AZ_REGISTRY_URL}
+            docker tag ${IMAGE_NAME}:${TAG} ${REMOTE_TAG}
+            docker push ${REMOTE_TAG}
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .

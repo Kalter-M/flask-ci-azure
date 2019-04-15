@@ -42,5 +42,6 @@ def long():
 def bad():
     raise InternalServerError('err')
 
+
 if __name__ == '__main__':
-    app.run(threaded=True, port=5002)
+    app.run(threaded=True, port=5000)
