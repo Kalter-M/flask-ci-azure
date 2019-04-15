@@ -50,8 +50,16 @@ jobs:
           echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
           echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"' >> $BASH_ENV
           echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:latest"' >> $BASH_ENV
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install --no-cache-dir -r requirements.txt
     - setup_remote_docker:
         docker_layer_caching: true
+    - run:
+        name: Build Docker image
+        command: |
+          . venv/bin/activate
+          docker build --rm=true -t $IMAGE_NAME:$TAG .
     - run:
         name: Push Docker Image
         command: |
