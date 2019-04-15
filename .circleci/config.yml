@@ -23,6 +23,7 @@ jobs:
       - run:
           name: Build and push Docker image
           command: |
+            . venv/bin/activate
             docker build -t $IMAGE_NAME:$TAG .
             docker images
             docker run $IMAGE_NAME:$TAG
