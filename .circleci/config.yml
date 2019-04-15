@@ -2,8 +2,10 @@ version: 2.1
 
 jobs:
   test:
-    docker:
-      - image: circleci/python:3.6
+    machine:
+      enabled: true
+#    docker:
+#      - image: circleci/python:3.6
     steps:
       - checkout
       - setup_remote_docker
