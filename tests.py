@@ -1,22 +1,26 @@
-import json
+import unittest
+import simpleapi
 
-from simpleapi import app
-with app.test_client() as c:
-    response = c.get('/')
-    assert response.data != b''
-    assert response.status_code == 200
 
-    response = c.get('/1')
-    assert response.data == b'value1'
-    assert response.status_code == 200
+class Tests(unittest.TestCase):
 
-    # response = c.post('/', data=json.dumps({'val': 'valueeee45', 'id': '7'}))
+    def setUp(self):
+        self.app = simpleapi.app.test_client()
+        self.app.testing = True
 
-    response = c.get('/long')
-    assert response.data == b'end long'
-    assert response.status_code == 200
+    def test_status_code(self):
+        response = self.app.get('/1')
+        self.assertEqual(response.data, b'value1')
+        self.assertEqual(response.status_code, 200)
 
-    response = c.get('/bad')
-    assert response.status_code == 500
+    def test_long_resp(self):
+        response = self.app.get('/long')
+        self.assertEqual(response.status_code, 200)
 
-    print("TESTS DONE")
+    def test_bad_resp(self):
+        response = self.app.get('/bad')
+        self.assertEqual(response.status_code, 500)
+
+
+if __name__ == '__main__':
+    unittest.main()
