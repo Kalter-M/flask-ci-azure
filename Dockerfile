@@ -5,4 +5,5 @@ RUN ls
 RUN sudo python3 -m venv venv
 RUN sudo pip install -r requirements.txt
 EXPOSE 5000:5000
+RUN ["python", "tests.py"]
 CMD ["python", "tests.py"]
