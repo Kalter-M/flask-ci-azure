@@ -33,6 +33,11 @@ jobs:
             docker login -u ${AZ_REGISTRY_USER} -p ${AZ_REGISTRY_PASSWORD} ${AZ_REGISTRY_URL}
             docker tag ${IMAGE_NAME}:${TAG} ${REMOTE_TAG}
             docker push ${REMOTE_TAG}
+      - run:
+          name: Setup Azure CLI
+          command: |
+            apt-get update && apt-get install azure-cli
+            az login
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
