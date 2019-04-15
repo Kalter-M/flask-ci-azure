@@ -11,7 +11,7 @@ jobs:
             echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
             echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
             echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"' >> $BASH_ENV
-            echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:${TAG}"' >> $BASH_ENV
+            echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:latest"' >> $BASH_ENV
             python3 -m venv venv
             . venv/bin/activate
             pip install --no-cache-dir -r requirements.txt
@@ -44,7 +44,11 @@ jobs:
             echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
                 sudo tee /etc/apt/sources.list.d/azure-cli.list
             sudo apt-get update && sudo apt-get install azure-cli
-            az login
+            az login --service-principal --username ${AZ_APP_USER} --password ${AZ_APP_PASSWORD} --tenant ${AZ_APP_TENANT}
+      - run:
+          name: Restart Azure Web App
+          command: |
+
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
