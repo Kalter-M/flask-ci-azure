@@ -4,7 +4,7 @@ from simpleapi import app
 with app.test_client() as c:
     response = c.get('/')
     assert response.data != b''
-    assert response.status_code == 200
+    assert response.status_code == 201
 
     response = c.get('/1')
     assert response.data == b'value1'
