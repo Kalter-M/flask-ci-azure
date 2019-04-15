@@ -44,11 +44,11 @@ jobs:
             echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
                 sudo tee /etc/apt/sources.list.d/azure-cli.list
             sudo apt-get update && sudo apt-get install azure-cli
-            az login --service-principal --username ${AZ_APP_USER} --password ${AZ_APP_PASSWORD} --tenant ${AZ_APP_TENANT}
       - run:
           name: Restart Azure Web App
           command: |
-
+            az login --service-principal --username ${AZ_APP_USER} --password ${AZ_APP_PASSWORD} --tenant ${AZ_APP_TENANT}
+            az webapp restart --name ${AZ_APP_NAME} --resource-group ${AZ_RESOURCE_GROUP}
 #            . venv/bin/activate
 #            pyinstaller -F simpleapi.py
 #            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
@@ -58,3 +58,4 @@ jobs:
 #          name: Deploy app to Digital Ocean Server via Docker
 #          command: |
 #            ssh -o StrictHostKeyChecking=no root@hello.dpunks.org "/bin/bash ./deploy_app.sh ariv3ra/$IMAGE_NAME:$TAG"
+            # flake8
