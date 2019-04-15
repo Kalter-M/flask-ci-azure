@@ -3,7 +3,7 @@ services:
   build:
     build: .
     working_dir: /code
-    command: ["python", "tests.py"]
+    command: ls
     ports:
      - "5000:5000"
     volumes:
