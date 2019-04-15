@@ -5,7 +5,7 @@ WORKDIR /flask_ci
 
 COPY . /flask_ci
 RUN python3 -m venv venv
-RUN /bin/bash source ./venv/bin/activate
+RUN . venv/bin/activate
 RUN pip install -r requirements.txt
 EXPOSE 5000:5000
 
