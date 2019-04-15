@@ -16,6 +16,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
+            . venv/bin/activate
             python tests.py
 #            . helloworld/bin/activate
 #      - setup_remote_docker:
