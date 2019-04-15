@@ -26,29 +26,6 @@ jobs:
         command: |
           echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
           echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
-          echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"' >> $BASH_ENV
-          echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:latest"' >> $BASH_ENV
-          python3 -m venv venv
-          . venv/bin/activate
-          pip install --no-cache-dir -r requirements.txt
-    - setup_remote_docker:
-        docker_layer_caching: true
-    - run:
-        name: Build Docker image
-        command: |
-          . venv/bin/activate
-          docker build --rm=true -t $IMAGE_NAME:$TAG .
-  deploy:
-    docker:
-    - image: circleci/python:3.6
-    steps:
-    - checkout
-    - run:
-        name: Setup Env
-        command: |
-          echo 'export TAG=0.1.${CIRCLE_BUILD_NUM}' >> $BASH_ENV
-          echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
-          echo 'export AZ_REGISTRY_URL="flaskciazure.azurecr.io"' >> $BASH_ENV
           echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:latest"' >> $BASH_ENV
           python3 -m venv venv
           . venv/bin/activate
@@ -66,6 +43,16 @@ jobs:
           docker login -u ${AZ_REGISTRY_USER} -p ${AZ_REGISTRY_PASSWORD} ${AZ_REGISTRY_URL}
           docker tag ${IMAGE_NAME}:${TAG} ${REMOTE_TAG}
           docker push ${REMOTE_TAG}
+  deploy:
+    docker:
+    - image: circleci/python:3.6
+    steps:
+    - checkout
+    - run:
+        name: Setup Env
+        command: |
+          echo 'export IMAGE_NAME=flask-ci-azure' >> $BASH_ENV
+          echo 'export REMOTE_TAG="${AZ_REGISTRY_URL}/${AZ_REGISTRY_USER}/${IMAGE_NAME}:latest"' >> $BASH_ENV
     - run:
         name: Setup Azure CLI
         command: |
