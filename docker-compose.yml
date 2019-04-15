@@ -2,7 +2,8 @@ version: "3.7"
 services:
   build:
     build: .
-    command: ["python", "code/tests.py"]
+    working_dir: /code
+    command: ["python", "tests.py"]
     ports:
      - "5000:5000"
     volumes:
