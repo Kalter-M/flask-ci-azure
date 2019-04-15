@@ -18,3 +18,5 @@ with app.test_client() as c:
 
     response = c.get('/bad')
     assert response.status_code == 500
+
+    print("TESTS DONE")
