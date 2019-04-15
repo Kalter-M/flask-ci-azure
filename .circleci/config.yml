@@ -18,17 +18,16 @@ jobs:
           command: |
             . venv/bin/activate
             python tests.py
-#            . helloworld/bin/activate
-#      - setup_remote_docker:
-#          docker_layer_caching: true
-#      - run:
-#          name: Build and push Docker image
-#          command: |
-#            . helloworld/bin/activate
-#            pyinstaller -F hello_world.py
-#            docker build -t ariv3ra/$IMAGE_NAME:$TAG .
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build and push Docker image
+          command: |
+            . venv/bin/activate
+            pyinstaller -F simpleapi.py
+            docker build -t Kalter-M/$IMAGE_NAME:$TAG .
 #            echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
-#            docker push ariv3ra/$IMAGE_NAME:$TAG
+#            docker push Kalter-M/$IMAGE_NAME:$TAG
 #      - run:
 #          name: Deploy app to Digital Ocean Server via Docker
 #          command: |
