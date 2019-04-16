@@ -71,6 +71,7 @@ jobs:
           az login --service-principal --username ${AZ_APP_USER} --password ${AZ_APP_PASSWORD} --tenant ${AZ_APP_TENANT}
           az webapp restart --name ${AZ_APP_NAME} --resource-group ${AZ_RESOURCE_GROUP}
 
+
 workflows:
   build-deploy:
     jobs:
