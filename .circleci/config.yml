@@ -41,6 +41,7 @@ jobs:
         name: Push Docker Image
         command: |
           docker login -u ${AZ_REGISTRY_USER} -p ${AZ_REGISTRY_PASSWORD} ${AZ_REGISTRY_URL}
+          docker images
           docker tag ${IMAGE_NAME}:${TAG} ${REMOTE_TAG}
           docker push ${REMOTE_TAG}
   deploy:
