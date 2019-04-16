@@ -11,7 +11,7 @@ class Tests(unittest.TestCase):
     def test_status_code(self):
         response = self.app.get('/1')
         self.assertEqual(response.data, b'value1')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 201)
 
     def test_long_resp(self):
         response = self.app.get('/long')
